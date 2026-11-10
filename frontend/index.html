@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta name="description" content="A friendly AI customer enquiry and appointment assistant." />
+    <title>Dasceq — Appointment assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Dasceq home">
+          <span class="brand-mark" aria-hidden="true">d</span>
+          <span>dasceq<span class="brand-dot">.</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="secure-label"><span class="secure-dot"></span> Private conversation</span>
+          <button class="new-chat-button" id="new-chat" type="button">Start over</button>
+        </div>
+      </header>
+
+      <section class="layout">
+        <aside class="intro-panel">
+          <div class="eyebrow"><span class="sparkle">✳</span> CUSTOMER CARE, MADE SIMPLE</div>
+          <h1>How can we<br /><span>help you today?</span></h1>
+          <p class="intro-copy">A real conversation, a little less waiting. Tell us what you need and we’ll help find a time that works.</p>
+
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.75 4.5 7v5.25c0 4.15 3.2 7.7 7.5 8.5 4.3-.8 7.5-4.35 7.5-8.5V7L12 3.75Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <strong>Here for you, 24/7</strong>
+              <span>Share your enquiry anytime.</span>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon calendar-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 4v4M16 4v4M4 10h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m9 14 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <strong>On your schedule</strong>
+              <span>Choose an appointment time that suits you.</span>
+            </div>
+          </div>
+
+          <div class="privacy-note">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2.5 4 5v4.2c0 3.35 2.55 6.2 6 6.8 3.45-.6 6-3.45 6-6.8V5l-6-2.5Z" stroke="currentColor" stroke-width="1.4"/><path d="m7.5 9.5 1.7 1.7 3.5-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Appointment details stay in temporary server memory. AI replies and voice transcription use Groq.
+          </div>
+        </aside>
+
+        <section class="chat-card" aria-label="Customer support chat">
+          <header class="chat-header">
+            <div class="assistant-avatar" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none"><path d="M14 4.2c-5.4 0-9.8 3.8-9.8 8.5 0 2.5 1.3 4.7 3.5 6.2l-.9 4.5 4.7-2.4c.8.2 1.7.3 2.5.3 5.4 0 9.8-3.8 9.8-8.5S19.4 4.2 14 4.2Z" fill="currentColor" opacity=".18"/><circle cx="10.3" cy="12.8" r="1.2" fill="currentColor"/><circle cx="14" cy="12.8" r="1.2" fill="currentColor"/><circle cx="17.7" cy="12.8" r="1.2" fill="currentColor"/></svg>
+            </div>
+            <div class="assistant-heading">
+              <strong>Customer care</strong>
+              <span><span class="online-dot"></span><span id="status-label">Connecting…</span></span>
+            </div>
+            <button class="icon-button" id="sound-toggle" type="button" aria-label="Turn voice replies off" title="Toggle voice replies">
+              <svg class="sound-on" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5ZM15.5 8.5a5 5 0 0 1 0 7m2.8-9.8a9 9 0 0 1 0 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </header>
+
+          <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+          <div class="chat-content">
+            <div class="chat-meta"><span id="step-label">GETTING STARTED</span><span id="step-count">1 of 7</span></div>
+            <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+            <div class="typing-indicator" id="typing" hidden aria-label="Assistant is typing">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="confirmation-card" id="confirmation" hidden></div>
+          </div>
+
+          <div class="error-banner" id="error-banner" role="alert" hidden></div>
+          <form class="composer" id="composer">
+            <textarea id="message-input" rows="1" maxlength="1000" placeholder="Type your message…" aria-label="Your message"></textarea>
+            <div class="composer-actions">
+              <button class="voice-button" id="record-button" type="button" aria-label="Record a voice message" title="Record a voice message">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3m-3 0h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </button>
+              <button class="send-button" id="send-button" type="submit" aria-label="Send message" disabled>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 14-7-4.5 14-2.2-5.3L5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m12.3 13.7 3.8-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </form>
+          <div class="composer-hint">Press <kbd>Enter</kbd> to send <span>·</span> <button id="voice-help" type="button">Voice is transcribed securely</button></div>
+        </section>
+      </section>
+      <footer class="page-footer">Thoughtful support, one conversation at a time.</footer>
+    </main>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
