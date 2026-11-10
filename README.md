@@ -34,6 +34,17 @@ python main.py
 
 Or use `py main.py`. Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The API health check is at `/api/health`.
 
+## Share a free demo on Render
+
+The included `render.yaml` sets up a free Render web service and starts it using `python main.py`. To get a shareable link:
+
+1. Push this project to a GitHub repository. Do not commit `.env`; it contains your local API key and is git-ignored.
+2. Sign in at [Render](https://render.com), select **New → Blueprint**, and connect your GitHub repository.
+3. Review the `dasceq-appointment-assistant` free web service. When prompted, enter your Groq API key for `GROQ_API_KEY`. Keep the key in Render's environment settings—never in a committed file.
+4. Deploy the Blueprint. When the deployment finishes, open the service's `onrender.com` URL and share it.
+
+Render's free web service sleeps after 15 minutes without traffic; the first visit after sleeping can take about a minute while it starts. Free instance time and bandwidth are limited. This app keeps conversations and appointment details in server memory, so they are lost when the service restarts or sleeps. Anyone with the demo link can use the app, and the app does not save appointments permanently. Free hosting is suitable for a short demonstration, not production or reliably available bookings. Groq API usage is subject to your account's model access and limits.
+
 ## Try it
 
 With a Groq API key configured, customers can provide several details in one message or chat naturally while the assistant extracts and validates their name, phone, email, enquiry, a relevant follow-up, appointment date, and appointment time. The assistant asks for whatever is still missing, and only confirms when all required details are valid. Without a key, a guided step-by-step demo flow remains available. A successful booking displays a confirmation and calendar links. Conversations are temporary and stored only in server memory while the server is running; no database or permanent appointment storage is used. Start over to create a fresh conversation.
